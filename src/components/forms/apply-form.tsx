@@ -3,14 +3,15 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { buttonStyles } from '@/components/ui/button'
 import { applicationSchema, type ApplicationValues } from '@/lib/validations'
 import { submitApplication } from '@/app/apply/actions'
 import { getAllProducts } from '@/data/products'
 
 const inputClass =
-	'w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200'
+	'w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none transition focus:border-gold focus:ring-4 focus:ring-gold/20'
 
-export function ApplyForm() {
+export function ApplyForm({ defaultService }: { defaultService: string }) {
 	const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
 	const [errorText, setErrorText] = useState('')
 
@@ -21,7 +22,13 @@ export function ApplyForm() {
 		formState: { errors, isSubmitting },
 	} = useForm<ApplicationValues>({
 		resolver: zodResolver(applicationSchema),
-		defaultValues: { name: '', phone: '', service: '', message: '' },
+		defaultValues: {
+			name: '',
+			phone: '',
+			service: defaultService,
+			message: '',
+			website: '',
+		},
 	})
 
 	async function onSubmit(values: ApplicationValues) {
@@ -30,7 +37,7 @@ export function ApplyForm() {
 
 		if (result.ok) {
 			setStatus('success')
-			reset()
+			reset({ name: '', phone: '', service: '', message: '', website: '' })
 			return
 		}
 
@@ -41,35 +48,56 @@ export function ApplyForm() {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className='flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm'
+			noValidate
+			className='relative flex flex-col gap-5 rounded-3xl border border-border bg-card p-6 shadow-xl sm:p-8'
 		>
-			<div className='flex flex-col gap-1'>
+			<div
+				aria-hidden='true'
+				className='absolute -left-[9999px] h-0 w-0 overflow-hidden'
+			>
+				<label htmlFor='website'>Website</label>
+				<input
+					id='website'
+					type='text'
+					tabIndex={-1}
+					autoComplete='off'
+					{...register('website')}
+				/>
+			</div>
+
+			<div className='flex flex-col gap-1.5'>
 				<label htmlFor='name' className='text-sm font-medium'>
 					Ism
 				</label>
-				<input id='name' className={inputClass} {...register('name')} />
+				<input
+					id='name'
+					autoComplete='name'
+					className={inputClass}
+					{...register('name')}
+				/>
 				{errors.name && (
-					<p className='text-sm text-red-600'>{errors.name.message}</p>
+					<p className='text-sm text-red-500'>{errors.name.message}</p>
 				)}
 			</div>
 
-			<div className='flex flex-col gap-1'>
+			<div className='flex flex-col gap-1.5'>
 				<label htmlFor='phone' className='text-sm font-medium'>
 					Telefon
 				</label>
 				<input
 					id='phone'
 					type='tel'
+					autoComplete='tel'
 					placeholder='+998 90 123 45 67'
 					className={inputClass}
 					{...register('phone')}
 				/>
 				{errors.phone && (
-					<p className='text-sm text-red-600'>{errors.phone.message}</p>
+					<p className='text-sm text-red-500'>{errors.phone.message}</p>
 				)}
 			</div>
 
-			<div className='flex flex-col gap-1'>
+			<div className='flex flex-col gap-1.5'>
 				<label htmlFor='service' className='text-sm font-medium'>
 					Xizmat
 				</label>
@@ -82,11 +110,11 @@ export function ApplyForm() {
 					))}
 				</select>
 				{errors.service && (
-					<p className='text-sm text-red-600'>{errors.service.message}</p>
+					<p className='text-sm text-red-500'>{errors.service.message}</p>
 				)}
 			</div>
 
-			<div className='flex flex-col gap-1'>
+			<div className='flex flex-col gap-1.5'>
 				<label htmlFor='message' className='text-sm font-medium'>
 					Xabar
 				</label>
@@ -97,25 +125,31 @@ export function ApplyForm() {
 					{...register('message')}
 				/>
 				{errors.message && (
-					<p className='text-sm text-red-600'>{errors.message.message}</p>
+					<p className='text-sm text-red-500'>{errors.message.message}</p>
 				)}
 			</div>
 
 			<button
 				type='submit'
 				disabled={isSubmitting}
-				className='rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-indigo-700 disabled:opacity-60'
+				className={buttonStyles('primary', 'w-full disabled:opacity-60')}
 			>
 				{isSubmitting ? 'Yuborilmoqda...' : 'Ariza yuborish'}
 			</button>
 
 			{status === 'success' && (
-				<p className='rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700'>
+				<p
+					role='status'
+					className='rounded-xl bg-green-500/10 px-4 py-3 text-sm text-green-600 dark:text-green-400'
+				>
 					Arizangiz yuborildi. Tez orada boglanamiz.
 				</p>
 			)}
 			{status === 'error' && (
-				<p className='rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700'>
+				<p
+					role='alert'
+					className='rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-600 dark:text-red-400'
+				>
 					{errorText}
 				</p>
 			)}

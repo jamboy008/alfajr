@@ -1,1 +1,146 @@
-	@import "tailwindcss";
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #faf8f3;
+  --foreground: #0a1020;
+  --card: #ffffff;
+  --muted: #5b6478;
+  --border: #e6e0d2;
+  --gold: #b8892b;
+  --gold-soft: #d9a93d;
+  --navy: #1e3a8a;
+  --glow-gold: rgba(217, 169, 61, 0.28);
+  --glow-navy: rgba(37, 99, 235, 0.16);
+  color-scheme: light;
+}
+
+.dark {
+  --background: #04060c;
+  --foreground: #eef2fa;
+  --card: #0b1120;
+  --muted: #94a0b8;
+  --border: #1a2340;
+  --gold: #e3b94f;
+  --gold-soft: #f0cd77;
+  --navy: #3b82f6;
+  --glow-gold: rgba(227, 185, 79, 0.2);
+  --glow-navy: rgba(37, 99, 235, 0.28);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-navy: var(--navy);
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-glow: glow 5s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+
+  @keyframes glow {
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: #0a1020;
+  }
+}
+
+@utility gradient-text {
+  background-image: linear-gradient(
+    120deg,
+    var(--gold-soft),
+    var(--gold) 45%,
+    var(--navy)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse at center, black 25%, transparent 72%);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .animate-fade-up,
+  .animate-float,
+  .animate-glow {
+    animation: none;
+  }
+}

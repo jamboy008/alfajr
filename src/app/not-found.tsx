@@ -3,9 +3,9 @@ import { ButtonLink } from '@/components/ui/button'
 
 export default function NotFound() {
 	return (
-		<Container className='flex flex-col items-center gap-4 py-24 text-center'>
-			<h1 className='text-4xl font-bold'>404</h1>
-			<p className='text-neutral-600'>Sahifa topilmadi</p>
+		<Container className='flex flex-col items-center gap-5 py-32 text-center'>
+			<span className='gradient-text text-8xl font-extrabold'>404</span>
+			<p className='text-lg text-muted'>Sahifa topilmadi</p>
 			<ButtonLink href='/'>Bosh sahifaga qaytish</ButtonLink>
 		</Container>
 	)
