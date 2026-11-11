@@ -1,0 +1,74 @@
+Структура папок
+Серийный номер тома: 000000F3 68FF:8208
+D:\ALJABR\SRC
++---app
+|   |   favicon.ico.backup
+|   |   globals.css
+|   |   home.css
+|   |   icon.png
+|   |   layout.tsx
+|   |   mobile-navigation.css
+|   |   page.backup.tsx
+|   |   page.tsx
+|   |   page.tsx.backup
+|   |   premium.css
+|   |   responsive.css
+|   |   robots.ts
+|   |   sitemap.ts
+|   |   theme.css
+|   |   
+|   +---apply
+|   |       page.tsx
+|   |       
+|   \---products
+|       |   layout.tsx
+|       |   
+|       +---ai
+|       |       page.tsx
+|       |       
+|       +---crm
+|       |       page.tsx
+|       |       page.tsx.backup
+|       |       
+|       +---ecommerce
+|       |       page.tsx
+|       |       
+|       +---erp
+|       |       page.tsx
+|       |       
+|       +---mobile-apps
+|       |       page.tsx
+|       |       
+|       +---telegram
+|       |       page.tsx
+|       |       
+|       +---telegram-mini-app
+|       |       page.tsx
+|       |       
+|       +---websites
+|       |       page.tsx
+|       |       page.tsx.backup
+|       |       
+|       \---_components
+|               ProductPricing.tsx
+|               
++---components
+|   +---forms
+|   +---home
+|   +---layout
+|   |       ApplicationActions.tsx
+|   |       back-button.tsx
+|   |       footer.tsx
+|   |       header.tsx
+|   |       mobile-menu.tsx
+|   |       
+|   +---products
+|   |       product-cards.tsx
+|   |       
+|   +---sections
+|   \---ui
++---config
++---data
++---lib
++---styles
+\---types

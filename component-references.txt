@@ -1,0 +1,8 @@
+src\app\page.tsx:26:import MobileMenu from "@/components/layout/mobile-menu";
+src\components\layout\ApplicationActions.tsx:25:export default function ApplicationActions({
+src\components\layout\header.tsx:4:import MobileMenu from "./mobile-menu";
+src\components\layout\mobile-menu.tsx:133:      className="mobile-menu"
+src\components\layout\mobile-menu.tsx:139:        className={`mobile-menu-button ${
+src\components\layout\mobile-menu.tsx:159:        className={`mobile-menu-panel ${
+src\components\layout\mobile-menu.tsx:184:          className="mobile-menu-cta"
+src\components\products\product-cards.tsx:1:import ProductCards from "@/components/products/product-cards";
