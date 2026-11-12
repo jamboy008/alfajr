@@ -3,7 +3,7 @@ import { siteConfig } from '@/config/site'
 import { getAllProducts } from '@/data/products'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-	const pages = ['', '/products', '/apply'].map(path => ({
+	const pages = ['', '/products', '/contact', '/apply'].map(path => ({
 		url: `${siteConfig.url}${path}`,
 	}))
 
